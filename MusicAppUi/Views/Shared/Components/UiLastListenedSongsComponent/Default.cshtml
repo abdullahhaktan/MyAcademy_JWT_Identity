@@ -1,0 +1,62 @@
+﻿@model List<ResultUserSongHistoryDto>
+
+<div class="heading pt-5 pb-3 d-flex ">
+    <div>
+        <div class="text-muted sr-item">Son Zamanlar</div>
+        <h5 class="text-highlight sr-item">Son Dinlenenler</h5>
+    </div>
+    <span class="flex"></span>
+</div>
+
+<div class="slick slick-visible slick-arrow-top row sr-item" data-plugin="slick" data-option="{
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    dots: false,
+    rtl: false,
+    responsive: [
+        { breakpoint: 1200, settings: { slidesToShow: 4 } },
+        { breakpoint: 920, settings: { slidesToShow: 3 } },
+        { breakpoint: 576, settings: { slidesToShow: 2 } }
+    ]
+}">
+
+    @foreach (var item in Model)
+    {
+        <div class="px-3">
+
+            <div class="list-item slick-item r list-hover mb-3">
+
+                <div class="media" style="min-height: 200px; background-color: #23232e;">
+                    <a href="#" class="ajax media-content"
+                       style="background-image:url('@(string.IsNullOrEmpty(item.Song.ImageUrl) ? "/assets/img/default-album.jpg" : item.Song.ImageUrl)'); background-size: cover;">
+                    </a>
+
+                    <div class="media-action media-action-overlay">
+
+                        <button type="button"
+                                class="btn btn-raised btn-icon btn-rounded bg--white btn-play"
+                                data-audio="@item.Song.FilePath"
+                                data-title="@item.Song.Title"
+                                data-artist="@item.Song.Artist.Name"
+                                data-image="@((string.IsNullOrEmpty(item.Song.ImageUrl) ? "/assets/img/default-album.jpg" : item.Song.ImageUrl))">
+                            ▶
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="list-content text-center mt-2">
+                    <div class="list-body">
+                        <div class="list-title font-weight-bold">
+                            @item.Song.Title
+                        </div>
+                        <div class="text-muted">
+                            @item.Song.Artist.Name
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

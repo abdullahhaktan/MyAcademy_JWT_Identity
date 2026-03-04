@@ -1,0 +1,153 @@
+﻿<style>
+    #bottom-player {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 95px;
+        background: linear-gradient(90deg,#111 0%,#1e1e2f 50%,#111 100%);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid rgba(255,255,255,0.05);
+        display: flex;
+        align-items: center;
+        padding: 0 40px;
+        z-index: 9999;
+        color: white;
+    }
+
+    /* LEFT */
+    .bp-left {
+        display: flex;
+        align-items: center;
+        min-width: 250px;
+    }
+
+        .bp-left img {
+            width: 65px;
+            height: 65px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-right: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
+
+    .bp-info #bp-title {
+        font-weight: 600;
+    }
+
+    .bp-info #bp-artist {
+        font-size: 0.85rem;
+        color: #aaa;
+    }
+
+    /* CENTER */
+    .bp-center {
+        flex: 1;
+        text-align: center;
+    }
+
+    .bp-controls {
+        margin-bottom: 8px;
+    }
+
+        .bp-controls button {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 18px;
+            margin: 0 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+            .bp-controls button:hover {
+                color: #a259ff;
+                transform: scale(1.15);
+            }
+
+    .play-main {
+        background: linear-gradient(135deg,#a259ff,#6a3bb3);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        color: white !important;
+        font-size: 20px;
+        box-shadow: 0 5px 20px rgba(162,89,255,0.6);
+    }
+
+    /* PROGRESS */
+    .bp-progress-area {
+        display: flex;
+        align-items: center;
+    }
+
+        .bp-progress-area span {
+            font-size: 0.75rem;
+            color: #888;
+            width: 45px;
+        }
+
+    #bp-progress {
+        flex: 1;
+        margin: 0 10px;
+        height: 4px;
+        -webkit-appearance: none;
+        background: linear-gradient(90deg,#a259ff,#6a3bb3);
+        border-radius: 10px;
+        outline: none;
+    }
+
+    /* RIGHT */
+    .bp-right {
+        min-width: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    #bp-volume {
+        margin-left: 10px;
+        width: 120px;
+    }
+</style>
+@*
+    Ui Bottom Player Component
+*@
+
+<div id="bottom-player">
+
+    <!-- SOL - Kapak + Bilgi -->
+    <div class="bp-left">
+        <img id="bp-image" src="/assets/img/default-album.jpg" />
+        <div class="bp-info">
+            <div id="bp-title">Song Title</div>
+            <div id="bp-artist">Artist Name</div>
+        </div>
+    </div>
+
+    <!-- ORTA - Kontroller -->
+    <div class="bp-center">
+        <div class="bp-controls">
+            <button id="bp-shuffle">⤮</button>
+            <button id="bp-prev">⏮</button>
+            <button id="bp-play" class="play-main">▶</button>
+            <button id="bp-next">⏭</button>
+            <button id="bp-repeat">⟳</button>
+        </div>
+
+        <div class="bp-progress-area">
+            <span id="bp-current">0:00</span>
+            <input type="range" id="bp-progress" value="0" min="0" max="100">
+            <span id="bp-duration">0:00</span>
+        </div>
+    </div>
+
+    <!-- SAĞ - Volume -->
+    <div class="bp-right">
+        🔊
+        <input type="range" id="bp-volume" min="0" max="1" step="0.01" value="0.7">
+    </div>
+
+</div>
+
+<audio id="bp-audio"></audio>

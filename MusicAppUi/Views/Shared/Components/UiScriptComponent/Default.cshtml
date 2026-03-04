@@ -1,0 +1,83 @@
+﻿
+@*
+    Ui Script Component
+*@
+
+<!-- build:js ../assets/js/site.min.js -->
+<!-- jQuery -->
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- ajax page -->
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/pjax/pjax.min.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/js/ajax.js"></script>
+<!-- lazyload plugin -->
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/js/lazyload.config.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/js/lazyload.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/js/plugin.js"></script>
+<!-- scrollreveal -->
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/scrollreveal/dist/scrollreveal.min.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/slick-carousel/slick/slick.min.js"></script>
+<!-- feather icons -->
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/feather-icons/dist/feather.min.js"></script>
+<!-- theme -->
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/js/theme.js"></script>
+<!-- endbuild -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const audio = document.getElementById("bp-audio");
+        const playBtn = document.getElementById("bp-play");
+        const progress = document.getElementById("bp-progress");
+        const volume = document.getElementById("bp-volume");
+        const current = document.getElementById("bp-current");
+        const duration = document.getElementById("bp-duration");
+        const title = document.getElementById("bp-title");
+        const artist = document.getElementById("bp-artist");
+        const image = document.getElementById("bp-image");
+
+        function formatTime(sec){
+            if(isNaN(sec)) return "0:00";
+            const m = Math.floor(sec/60);
+            const s = Math.floor(sec%60);
+            return m + ":" + (s<10?"0":"") + s;
+        }
+
+        document.querySelectorAll(".btn-play").forEach(btn=>{
+            btn.addEventListener("click",function(){
+                audio.src = this.dataset.audio;
+                title.innerText = this.dataset.title;
+                artist.innerText = this.dataset.artist;
+                image.src = this.dataset.image;
+
+                audio.play();
+                playBtn.innerText="⏸";
+            });
+        });
+
+        playBtn.addEventListener("click",function(){
+            if(audio.paused){ audio.play(); this.innerText="⏸"; }
+            else{ audio.pause(); this.innerText="▶"; }
+        });
+
+        audio.addEventListener("timeupdate",function(){
+            progress.value = (audio.currentTime/audio.duration)*100;
+            current.innerText = formatTime(audio.currentTime);
+        });
+
+        audio.addEventListener("loadedmetadata",function(){
+            duration.innerText = formatTime(audio.duration);
+        });
+
+        progress.addEventListener("input",function(){
+            audio.currentTime = (progress.value/100)*audio.duration;
+        });
+
+        volume.addEventListener("input",function(){
+            audio.volume = volume.value;
+        });
+
+    });
+</script>

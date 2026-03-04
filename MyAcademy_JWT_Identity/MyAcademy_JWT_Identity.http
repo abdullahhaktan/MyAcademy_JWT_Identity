@@ -1,0 +1,6 @@
+@MyAcademy_JWT_Identity_HostAddress = http://localhost:5206
+
+GET {{MyAcademy_JWT_Identity_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

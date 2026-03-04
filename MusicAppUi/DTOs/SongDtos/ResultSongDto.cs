@@ -1,0 +1,21 @@
+﻿using MusicAppUi.DTOs.AlbumDtos;
+using MusicAppUi.DTOs.ArtistDtos;
+
+namespace MusicAppUi.DTOs.SongDtos
+{
+    public class ResultSongDto
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string FilePath { get; set; }
+        public string ImageUrl { get; set; }
+        public int Level { get; set; }
+
+
+        public int ArtistId { get; set; }
+        public ResultArtistDto Artist { get; set; }
+
+        public int AlbumId { get; set; }
+        public ResultAlbumDto Album { get; set; }
+    }
+}
