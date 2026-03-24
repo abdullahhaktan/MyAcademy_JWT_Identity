@@ -218,15 +218,15 @@ GitHub → [abdullahhaktan](https://github.com/abdullahhaktan)
 
 ---
 
-<img width="959" height="467" alt="Ekran görüntüsü 2026-03-24 092917" src="https://github.com/user-attachments/assets/f5bee399-a4f1-4ab6-ae23-dc06f9eb055e" />
-
----
-
 <img width="959" height="470" alt="Ekran görüntüsü 2026-03-24 091008" src="https://github.com/user-attachments/assets/d6792c1d-b00f-4977-ade4-e9bab8c4c5f8" />
 
 ---
 
 <img width="959" height="471" alt="Ekran görüntüsü 2026-03-24 090951" src="https://github.com/user-attachments/assets/ba68bbfa-ec7f-464b-a1e3-d10f61fb0606" />
+
+---
+
+<img width="959" height="467" alt="Ekran görüntüsü 2026-03-24 092917" src="https://github.com/user-attachments/assets/f5bee399-a4f1-4ab6-ae23-dc06f9eb055e" />
 
 ---
 
