@@ -1,0 +1,96 @@
+﻿@model List<ResultSongDto>
+
+@{
+    bool isAjax = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+    Layout = isAjax ? null : "~/Views/Shared/_UiLayout.cshtml";
+}
+
+
+<div class="page-content page-container" id="page-content">
+    <div class="padding sr" id="list" data-plugin="list" data-page="50">
+        <div class="page-hero">
+            <div class="media bg-media">
+                <div class="media-content"></div>
+            </div>
+            <div class="pos-rlt">
+                <h1 class="display-3 font-weight-bold text-white">En Çok Dinlenenler Listesi</h1>
+            </div>
+        </div>
+        <div class="d-lg-flex pos-rlt">
+            <div class="flex">
+                <div class="heading pt-5 pb-3 d-flex">
+                    <div>
+                        <div class="text-muted sr-item">Top</div>
+                        <h5 class="text-highlight sr-item">Grafikler</h5>
+                    </div>
+                    <span class="flex"></span>
+                </div>
+                <div class="pos-rlt z-index-1">
+                    <div class="d-flex py-2 sr-item">
+                        <div class="dropdown my-2">
+                            <button id="btn-sort"
+                                    class="btn btn-outline-light sorting w-sm w-auto-xs text-align-auto"
+                                    data-toggle="dropdown">
+                                <span>En Yeni</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="#" class="dropdown-item filter-opt"
+                                   data-type="sort" data-value="popular">Popüler</a>
+                                <a href="#" class="dropdown-item filter-opt"
+                                   data-type="sort" data-value="newest">En Yeni</a>
+                            </div>
+                        </div>
+                        <div class="flex"></div>
+                        <div class="dropdown my-2 mx-2">
+                            <button id="btn-country"
+                                    class="btn btn-outline-light sorting w-sm w-auto-xs text-align-auto"
+                                    data-toggle="dropdown">
+                                <span>Tüm Ülkeler</span>
+                            </button>
+                            <div class="dropdown-menu" id="filter-tag">
+                                <a href="#" class="dropdown-item filter-opt"
+                                   data-type="country" data-value="all">Tüm Ülkeler</a>
+                                @foreach (var song in ViewBag.allSongs)
+                                {
+                                    <a href="#" class="dropdown-item filter-opt"
+                                       data-type="country" data-value="@song.Country">@song.Country</a>
+                                }
+                            </div>
+                        </div>
+                        <div class="dropdown my-2">
+                            <button id="btn-genre"
+                                    class="btn btn-outline-light sorting w-sm w-auto-xs text-align-auto"
+                                    data-toggle="dropdown">
+                                <span>Tüm Türler</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right scrollable hover"
+                                 id="filter-category" style="max-height: 310px">
+                                <a href="#" class="dropdown-item filter-opt"
+                                   data-type="genre" data-value="all">Tüm Türler</a>
+                                @foreach (var item in ViewBag.allGenres)
+                                {
+                                    <a href="#" class="dropdown-item filter-opt"
+                                       data-type="genre" data-value="@item.Genre">@item.Genre</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row list list-row list-index" id="chart-list-container">
+                    @await Html.PartialAsync("FilteredSongsPartial", Model)
+                </div>
+                <div class="no-result hide">
+                    <div class="p-5 text-center">
+                        <h5>Hiçbir şey bulunamadı</h5>
+                        <small>Aradığınızı bulamıyoruz gibi görünüyor.</small>
+                    </div>
+                </div>
+                <div class="d-flex py-3 justify-content-center hide">
+                    <ul class="pagination pagination-sm"></ul>
+                </div>
+            </div>
+            <div style="min-width: 4rem"></div>
+            @await Html.PartialAsync("RightbarPartial")
+        </div>
+    </div>
+</div>

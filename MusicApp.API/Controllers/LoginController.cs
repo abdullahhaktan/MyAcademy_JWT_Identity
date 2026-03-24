@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MusicApp.API.Data.Entities;
 using MusicApp.API.DTOs.UserDtos;
@@ -6,6 +7,7 @@ using MusicApp.API.Services.TokenServices;
 
 namespace MusicApp.API.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
@@ -24,6 +26,7 @@ namespace MusicApp.API.Controllers
         {
             // Kullanıcıyı bul
             var user = await _userManager.FindByNameAsync(loginDto.UserName);
+
             if (user is null)
             {
                 return Unauthorized("Kullanıcı adı veya şifre hatalı!");
@@ -42,8 +45,10 @@ namespace MusicApp.API.Controllers
             // Response döndür
             return Ok(new UserDto
             {
+                Id = user.Id,
                 FullName = user.FullName,
                 Email = user.Email,
+                ImageUrl = user.ImageUrl,
                 PackageId = user.PackageId,
                 Token = token,
             });

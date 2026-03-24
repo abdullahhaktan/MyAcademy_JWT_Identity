@@ -15,6 +15,8 @@ namespace MusicApp.API.Data.Context
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Album> Albums { get; set; }
         public DbSet<Song> Songs { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<UserSongHistory> UserSongHistories { get; set; }
         public DbSet<RecentlyAdded> RecentlyAddeds { get; set; }
 
@@ -34,7 +36,7 @@ namespace MusicApp.API.Data.Context
                 .HasForeignKey(s => s.AlbumId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // teke tek ve çoka çok ilişki oluşturma yöntemleri (sadece örnek)
+            // Methods for creating one-to-one and many-to-many relationships (examples only)
 
             //modelBuilder.Entity<AppUser>()
             //.HasOne(u => u.Profile)

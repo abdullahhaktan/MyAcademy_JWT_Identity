@@ -1,0 +1,85 @@
+﻿@using MusicAppUi.DTOs.BlogDtos
+
+@{
+    Layout = null;
+}
+
+@model GetBlogByIdDto
+
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+@await Component.InvokeAsync("UiHeadComponent")
+<body class="layout-column bg-dark">
+    @await Component.InvokeAsync("UiNavbarComponent")
+    <div id="main" class="layout-row flex">
+        <!-- ############ Content START-->
+        <div id="content" class="flex">
+            <!-- ############ Main START-->
+            <div>
+                <div class="page-content page-container" id="page-content">
+                    <div class="padding sr">
+                        <div class="page-hero">
+                            <div class="media bg-media">
+                                <div class="media-content" style="background-image:url('@Model.ImageUrl')"></div>
+                            </div>
+                            <div class="pos-rlt text-white">
+                                <h1 class="display-4 font-weight-bold mb-0 text-white">@Model.Title</h1>
+                                <div class="my-5">
+                                    <span class="text-muted">@Model.CreatedDate.ToString("MMM dd, yyyy")</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-md-flex pos-rlt">
+                            <div class="flex">
+                                @if (!string.IsNullOrEmpty(Model.Description))
+                                {
+                                    <p>@Model.Description</p>
+                                }
+
+                                @if (!string.IsNullOrEmpty(Model.Description1))
+                                {
+                                    <p>@Model.Description1</p>
+                                }
+                                <div class="card" id="comment-section">
+                                    <div class="card-header">
+                                        <strong>@ViewBag.blogCommentCount Yorumlar</strong>
+                                    </div>
+                                    <div id="comment-list">
+                                         @await Html.PartialAsync("CommentListPartial.cshtml")
+                                    </div>
+
+                                    @if (ViewBag.message != null && ViewBag.message == true)
+                                    {
+                                        <div class="alert alert-warning">
+                                            Yorum yapabilmek için önce giriş yapmalısınız !!!
+                                        </div>
+                                    }
+
+                                    else
+                                    {
+                                        <div class="p-4">
+                                            <textarea class="form-control" id="comment-text" rows="3" placeholder="Yorumunuzu yazın..."></textarea>
+                                            <div class="d-flex justify-content-end mt-3">
+                                                <button type="button" class="btn btn-primary" id="btn-send-comment" data-blog-id="@ViewBag.blogId">Gönder</button>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div style="min-width: 4rem"></div>
+                            @await Html.PartialAsync("RightbarPartial")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @await Component.InvokeAsync("UiFooterComponent")
+    @await Component.InvokeAsync("UiScriptComponent")
+
+</body>
+</html>

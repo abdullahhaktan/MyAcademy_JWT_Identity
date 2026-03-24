@@ -203,6 +203,10 @@ namespace MusicApp.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -262,13 +266,103 @@ namespace MusicApp.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("BioInfo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FacebookUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InstagramUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TwitterUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Artists");
+                });
+
+            modelBuilder.Entity("MusicApp.API.Data.Entities.Blog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Blogs");
+                });
+
+            modelBuilder.Entity("MusicApp.API.Data.Entities.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MusicUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("MusicUserId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("MusicApp.API.Data.Entities.Package", b =>
@@ -324,13 +418,27 @@ namespace MusicApp.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("AlbumId")
                         .HasColumnType("int");
 
                     b.Property<int>("ArtistId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ClickCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Genre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -434,7 +542,7 @@ namespace MusicApp.API.Migrations
             modelBuilder.Entity("MusicApp.API.Data.Entities.Album", b =>
                 {
                     b.HasOne("MusicApp.API.Data.Entities.Artist", "Artist")
-                        .WithMany()
+                        .WithMany("Albums")
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -451,6 +559,25 @@ namespace MusicApp.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Package");
+                });
+
+            modelBuilder.Entity("MusicApp.API.Data.Entities.Comment", b =>
+                {
+                    b.HasOne("MusicApp.API.Data.Entities.Blog", "Blog")
+                        .WithMany("Comments")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MusicApp.API.Data.Entities.AppUser", "MusicUser")
+                        .WithMany("Comments")
+                        .HasForeignKey("MusicUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Blog");
+
+                    b.Navigation("MusicUser");
                 });
 
             modelBuilder.Entity("MusicApp.API.Data.Entities.RecentlyAdded", b =>
@@ -507,9 +634,21 @@ namespace MusicApp.API.Migrations
                     b.Navigation("Songs");
                 });
 
+            modelBuilder.Entity("MusicApp.API.Data.Entities.AppUser", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("MusicApp.API.Data.Entities.Artist", b =>
                 {
+                    b.Navigation("Albums");
+
                     b.Navigation("Songs");
+                });
+
+            modelBuilder.Entity("MusicApp.API.Data.Entities.Blog", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("MusicApp.API.Data.Entities.Package", b =>

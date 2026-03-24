@@ -1,0 +1,57 @@
+﻿@{
+    bool isAjax = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+    Layout = isAjax ? null : "~/Views/Shared/_UiLayout.cshtml";
+}
+
+@model List<ResultBlogDto>
+
+<div id="main" class="layout-row flex">
+    <!-- ############ Content START-->
+    <div id="content" class="flex ">
+        <!-- ############ Main START-->
+        <div>
+            <div class="page-content page-container" id="page-content">
+                <div class="padding sr" id="list" data-plugin="list">
+                    <div class="page-hero">
+                        <div class="media bg-media"></div>
+                        <div class="pos-rlt">
+                            <h1 class="display-3 font-weight-bold text-white">Blog</h1>
+                        </div>
+                    </div>
+                    <div class="d-lg-flex pos-rlt">
+                        <div class="flex">
+                            <div class="row list row-lg">
+                                @foreach (var blog in Model)
+                                {
+                                    <div class="col-sm-4 mb-5" data-id="@blog.Id" data-tag="USA">
+                                        <div class="list-item r">
+                                            <div class="media media-16x9">
+                                                <a href="/Blog/BlogDetail/@blog.Id" class="ajax media-content" style="background-image:url('@blog.ImageUrl')">
+                                                </a>
+                                                <div class="media-action ">
+                                                </div>
+                                            </div>
+                                            <div class="list-content ">
+                                                <div class="list-body ">
+                                                    <a href="/Blog/BlogDetail/@blog.Id" class="list-title title ajax text-highlight">
+                                                        @blog.Description
+                                                    </a>
+                                                </div>
+                                                <div class="list-footer ">
+                                                    <div class="text-muted text-sm">
+                                                        @blog.CreatedDate.ToShortDateString()
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ############ Main END-->
+    </div>
+</div>

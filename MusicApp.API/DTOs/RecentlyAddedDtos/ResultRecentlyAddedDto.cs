@@ -1,5 +1,4 @@
-﻿using MusicApp.API.Data.Entities;
-using MusicApp.API.DTOs.SongDtos;
+﻿using MusicApp.API.DTOs.SongDtos;
 
 namespace MusicApp.API.DTOs.SongPlayListDtos
 {

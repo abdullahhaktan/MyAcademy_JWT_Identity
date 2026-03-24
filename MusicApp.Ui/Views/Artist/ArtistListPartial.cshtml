@@ -1,0 +1,29 @@
+﻿
+@*
+    Ui Artist List Component
+*@
+
+@model List<ResultArtistDto>
+
+<div class="row list media-circle">
+    @foreach (var artist in Model)
+    {
+        <div class="col-4 col-sm-4 col-md-3 col-lg-3 py-3" data-id="@artist.Id">
+            <div class="list-item r">
+                <div class="media ">
+                    <a href="/Artist/ArtistDetail/@artist.Id" class="ajax media-content " style="background-image:url('@artist.ImageUrl')">
+                    </a>
+                    <div class="media-action ">
+                    </div>
+                </div>
+                <div class="list-content text-center">
+                    <div class="list-body ">
+                        <a href="artist.detail.html#418888835" class="list-subtitle d-block text-muted h-1x subtitle ajax ">
+                            @artist.Name
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

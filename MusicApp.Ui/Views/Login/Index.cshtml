@@ -1,0 +1,232 @@
+﻿@model LoginDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Bepop - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <style data-purpose="theme-variables">
+        :root {
+            --primary-color: #895af6;
+            --bg-dark: #0f1115;
+            --card-bg: #1a1d23;
+            --border-radius: 8px;
+            --font-family: 'Spline Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .login-container {
+            min-height: 100vh;
+        }
+
+        .hero-side {
+            background: linear-gradient(rgba(15, 17, 21, 0.4), rgba(15, 17, 21, 0.8)), url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .form-side {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: var(--border-radius);
+            padding: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: #7241e0;
+                border-color: #7241e0;
+                transform: translateY(-1px);
+            }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white !important;
+            border-radius: var(--border-radius);
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+        }
+
+            .form-control:focus {
+                background-color: rgba(255, 255, 255, 0.08);
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 0.25rem rgba(137, 90, 246, 0.25);
+            }
+
+        .input-group-text {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .social-btn {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 0.6rem;
+            transition: all 0.2s;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .logo-icon {
+            color: var(--primary-color);
+        }
+
+        .brand-accent {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .text-muted-custom {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .validation-msg {
+            font-size: 0.75rem;
+            color: #ff6b6b;
+            margin-top: 4px;
+            display: block;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-0">
+        <div class="row g-0 login-container">
+            <div class="col-lg-7 d-none d-lg-flex hero-side">
+                <div>
+                    <div class="logo-container">
+                        <i class="bi bi-broadcast logo-icon"></i>
+                        <span>Bepop</span>
+                    </div>
+                    <h1 class="brand-accent">Sanatçılar için müzik platformu.</h1>
+                    <p class="fs-4 text-light opacity-75">Dünyanın en popüler sanatçılarını bulun, müziklerini dinleyin ve topluluğa katılın.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-md-12 form-side">
+                <div class="login-card">
+                    <div class="text-center mb-4 d-lg-none">
+                        <div class="logo-container justify-content-center">
+                            <i class="bi bi-broadcast logo-icon"></i>
+                            <span>Bepop</span>
+                        </div>
+                    </div>
+                    <div class="mb-4 text-center">
+                        <h2 class="fw-bold mb-2">Hoş Geldiniz</h2>
+                        <p class="text-muted-custom">Devam etmek için giriş yapın</p>
+                    </div>
+
+                    @* FORM BAŞLANGICI *@
+                    <form method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label small text-muted-custom" asp-for="UserName">Kullanıcı Adı</label>
+                            <div class="position-relative">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input asp-for="UserName" class="form-control" placeholder="kullanıcıadınız" />
+                            </div>
+                            <span asp-validation-for="UserName" class="validation-msg"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label small text-muted-custom" asp-for="Password">Şifre</label>
+                                <a class="small" href="#">Şifremi Unuttum?</a>
+                            </div>
+                            <div class="position-relative">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input asp-for="Password" type="password" class="form-control" placeholder="••••••••" />
+                            </div>
+                            <span asp-validation-for="Password" class="validation-msg"></span>
+                        </div>
+
+                        <div class="d-grid mb-4">
+                            <button class="btn btn-primary" type="submit">Giriş Yap</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mb-4">
+                        <p class="small text-muted-custom mb-3">Veya şununla devam et</p>
+                        <div class="d-flex gap-3 justify-content-center">
+                            <button class="btn social-btn flex-fill"><i class="bi bi-google"></i></button>
+                            <button class="btn social-btn flex-fill"><i class="bi bi-facebook"></i></button>
+                            <button class="btn social-btn flex-fill"><i class="bi bi-apple"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="text-muted-custom small">Hesabınız yok mu? <a class="fw-bold" href="/Register/Index">Kayıt Ol</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @* Client-side validation için bu scriptleri eklemeni öneririm *@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+﻿
+@*
+    Ui Navbar Component
+*@
+
+<header id="header" class="page-header scroll-header fixed">
+    <div class="navbar navbar-expand-lg">
+        <!-- brand -->
+        <a href="/Default/Index" class="navbar-brand text-white ">
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1" fill="#000"></circle>
+                <circle cx="12" cy="12" r="2" stroke="currentColor" stroke-width="1"></circle>
+                <g class="loading-spin" stroke="currentColor" stroke-width="1" style="transform-origin: 12px 12px">
+                    <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path>
+                </g>
+            </svg>
+            <!-- <img src="../assets/img/logo.png" alt="..."> -->
+            <span class="hidden-folded d-inline l-s-n-1x ">Bepop</span>
+        </a>
+        <!-- / brand -->
+        <!-- Navbar collapse -->
+        <div class="collapse navbar-collapse order-2 order-lg-1" id="navbarCollapse">
+            <ul class="navbar-nav" data-nav>
+                <li class="nav-item">
+                    <a href="/Discover/Index" class="nav-link">
+                        <span class="nav-text">
+                            Keşfet
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" onclick="loadPage('/Chart/Index')" class="nav-link"> 
+                        <span class="nav-text">
+                            Listeler
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" onclick="loadPage('/Genre/Index')" class="nav-link">
+                        <span class="nav-text">
+                            Türler
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" onclick="loadPage('/Artist/Index')" class="nav-link">
+                        <span class="nav-text">
+                            Sanatçılar
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" onclick="loadPage('/Blog/Index')" class="nav-link">
+                        <span class="nav-text">
+                            Bloglar
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <form class="input-group m-2 my-lg-0 ">
+                <span class="input-group-prepend">
+                    <button type="button" class="btn no-shadow no-bg px-0"><i data-feather="search"></i></button>
+                </span>
+                <input type="text" class="form-control no-border no-shadow no-bg typeahead" placeholder="Search..." data-plugin="typeahead">
+            </form>
+        </div>
+        <ul class="nav navbar-menu order-1 order-lg-2">
+            <li class="nav-item d-none d-sm-block">
+                <!-- Fullscreen Butonu -->
+                <button id="btn-fullscreen" class="btn btn-primary ml-2">
+                    ⛶
+                </button>
+            </li>
+
+            &nbsp;&nbsp;
+
+            <!-- Giriş Yap Butonu -->
+            <li class="nav-item">
+                <a href="/Login/Index" class="btn btn-outline-primary mr-2">
+                    Giriş Yap
+                </a>
+            </li>
+
+            <!-- Kayıt Ol Butonu -->
+            <li class="nav-item">
+                <a href="/Register/Index" class="btn btn-primary">
+                    Kayıt Ol
+                </a>
+            </li>
+
+            <!-- Navbar toggle btn -->
+            <li class="nav-item d-lg-none">
+                <a href="#" class="nav-link px-2" data-toggle="collapse" data-toggle-class data-target="#navbarCollapse">
+                    <i data-feather="menu"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</header>

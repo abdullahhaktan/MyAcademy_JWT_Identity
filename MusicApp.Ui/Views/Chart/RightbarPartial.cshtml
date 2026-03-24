@@ -1,0 +1,64 @@
+﻿
+@*
+    Ui Rightbar Component
+*@
+
+<div class="w-xl w-auto-sm no-shrink">
+    <div class="sticky">
+        <div class="list mb-5">
+            <div class="list-item list-overlay r">
+                <div class="media ">
+                    <a href="item.detail.html#" class="ajax media-content " style="background-image:url('@ViewBag.mostPopularRapImageUrl')">
+                    </a>
+                    <div class="media-action ">
+                    </div>
+                </div>
+                <div class="list-content p-5 text-center">
+                    <div class="list-body ">
+                        <a href="item.detail.html#" class="list-title title ajax h3 font-weight-bold">
+                            @ViewBag.mostPopularMap
+                        </a>
+                        <a href="artist.detail.html#" class="list-subtitle d-block text-muted h-1x subtitle ajax ">
+                            Şu anda en popüler rap.
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h6 class="text text-muted sr-item">Popülerler</h6>
+        <div class="row list-row">
+            @foreach (var item in ViewBag.mostPopularSongs)
+            {
+                <div class="col-12" data-id="@item.Id" data-category="@item.Genre" data-tag="@item.Country" data-source="@item.FilePath">
+                    <div class="list-item r">
+                        <div class="media ">
+                            <a href="item.detail.html#438654695" class="ajax media-content " style="background-image:url('@item.ImageUrl')">
+                            </a>
+                            <div class="media-action ">
+                                <button class="btn btn-icon no-bg no-shadow hide-row" data-toggle-class>
+                                    <i data-feather="heart" class="active-fill"></i>
+                                </button>
+                                <button class="btn btn-raised btn-icon btn-rounded bg--white btn-play"></button>
+                                <button class="btn btn-icon no-bg no-shadow hide-row btn-more" data-toggle="dropdown">
+                                    <i data-feather="more-horizontal"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right"></div>
+                            </div>
+                        </div>
+                        <div class="list-content ">
+                            <div class="list-body ">
+                                <a href="item.detail.html#438654695" class="list-title title ajax h-1x">
+                                    @item.Title
+                                </a>
+                                <a href="artist.detail.html#438654695" class="list-subtitle d-block text-muted h-1x subtitle ajax ">
+                                    @item.Artist.Name
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

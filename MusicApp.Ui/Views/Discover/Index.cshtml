@@ -1,0 +1,57 @@
+﻿@{
+    bool isAjax = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+    Layout = isAjax ? null : "~/Views/Shared/_UiLayout.cshtml";
+}
+
+<div class="page-content page-container" id="page-content">
+    <div class="padding sr">
+        <div class="page-hero">
+            <div class="media bg-media">
+                <div class="media-content"
+                     style="background-image:url('/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/img/b9.jpg')">
+                </div>
+            </div>
+            <div class="slick" data-plugin="slick" data-option='{
+                "slidesToShow": 1,
+                "slidesToScroll": 1,
+                "dots": true,
+                "arrows": false,
+                "fade": true,
+                "autoplay": true,
+                "autoplaySpeed": 5000,
+                "rtl": false
+            }'>
+                <div data-bg="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/img/b9.jpg">
+                    <div class="pos-rlt">
+                        <h2 class="display-3 font-weight-bold text-white">Haftalık Keşif</h2>
+                        <div class="col-6 px-0 py-3 text-muted">
+                            <p>Senin için seçtiğimiz en yeni ritimleri ve bu haftanın öne çıkan hitlerini hemen keşfetmeye başla.</p>
+                        </div>
+                        <a href="#discover" class="btn btn-rounded gd-primary text-white">Şimdi Keşfet</a>
+                    </div>
+                </div>
+                <div data-bg="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/img/b0.jpg">
+                    <div class="pos-rlt">
+                        <h2 class="display-3 font-weight-bold text-white">Top Listeler</h2>
+                        <div class="col-6 px-0 py-3 text-muted">
+                            <p>Müzik dünyasının nabzını tutan en çok dinlenenler ve editörlerimizin hazırladığı özel listeler burada.</p>
+                        </div>
+                        <a href="/Chart/Index" class="btn ajax btn-rounded gd-primary text-white">Listelere Göz At</a>
+                    </div>
+                </div>
+                <div data-bg="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/img/b19.jpg">
+                    <div class="pos-rlt">
+                        <h2 class="display-3 font-weight-bold text-white">Popüler Sanatçılar</h2>
+                        <div class="col-6 px-0 py-3 text-muted">
+                            <p>Sevdiğin sanatçıların dünyasına yolculuğa çık. En yeni albümler ve sanatçı biyografileri seni bekliyor.</p>
+                        </div>
+                        <a href="/Artist/Index" class="btn ajax btn-rounded gd-primary text-white">Sanatçıları Bul</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @await Component.InvokeAsync("UiSuggestedSongsComponent")
+        @await Component.InvokeAsync("UiLastListenedSongsComponent")
+        @await Component.InvokeAsync("UiRecentlyAddedSongsComponent")
+    </div>
+</div>

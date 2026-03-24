@@ -1,0 +1,66 @@
+﻿
+@*
+    Ui SongList Component
+*@
+
+@model List<ResultSongDto>
+
+@if (Model != null && Model.Any())
+{
+    <div class="row g-4">
+        @foreach (var song in Model)
+        {
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                <div class="card song-card bg-dark border-0 h-100" data-id="@song.Id">
+                    <div class="position-relative">
+                        @if (!string.IsNullOrEmpty(song.ImageUrl))
+                        {
+                            <img src="@song.ImageUrl" class="card-img-top song-image" alt="@song.Title">
+                            <span class="position-absolute top-0 end-0 badge bg-primary m-2 level-badge">Seviye @song.Level</span>
+                        }
+                        <div class="card-img-overlay d-flex align-items-center justify-content-center opacity-0 hover-overlay">
+                            <!-- BOTTOM PLAYER'A UYUMLU PLAY BUTONU -->
+                            <button class="btn btn-light btn-rounded-circle btn-play"
+                                    data-audio="@song.FilePath"
+                                    data-title="@song.Title"
+                                    data-artist="@(song.Artist?.Name ?? "Bilinmeyen Sanatçı")"
+                                    data-image="@song.ImageUrl">
+                                <i data-feather="play" width="30" height="30"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body px-2 py-3">
+                        <h6 class="card-title text-white mb-1 text-truncate fw-bold">@song.Title</h6>
+                        <p class="card-text text-muted small mb-2 text-truncate">
+                            @(song.Artist?.Name ?? "Bilinmeyen Sanatçı")
+                        </p>
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                            <span class="badge bg-info">@song.Genre</span>
+                            <span class="badge bg-success">@song.Country</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i data-feather="headphones" width="12" height="12"></i>
+                                @song.ClickCount
+                            </small>
+                            <small class="text-muted">
+                                <i data-feather="calendar" width="12" height="12"></i>
+                                @song.AddedDate.ToShortDateString()
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="no-result">
+        <div class="p-5 text-center">
+            <i data-feather="music-off" width="48" height="48" class="text-muted mb-3"></i>
+            <h5 class="text-white">Şarkı Bulunamadı</h5>
+            <small class="text-muted">Seçilen filtrelerle eşleşen şarkı bulunamadı.</small>
+        </div>
+    </div>
+}

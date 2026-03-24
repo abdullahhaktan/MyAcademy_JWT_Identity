@@ -1,0 +1,39 @@
+﻿
+@*
+   Ui Filtered Songs Partial
+*@
+
+
+@foreach (var item in Model)
+{
+    <div class="col-12 custom-song-card"
+         data-id="@item.Id"
+         data-url="@item.FilePath"
+         data-title="@item.Title"
+         data-artist="@item.Artist.Name"
+         data-img="@item.ImageUrl">
+        <div class="list-item r">
+            <div class="media">
+                <a href="#" class="media-content" style="background-image:url('@item.ImageUrl')"></a>
+                <div class="media-action media-action-overlay">
+                    <button class="btn btn-raised btn-icon btn-rounded bg--white play-trigger btn-play" 
+                         data-audio="@item.FilePath"
+                         data-title="@item.Title"
+                         data-artist="@item.Artist.Name"
+                         data-image="@item.ImageUrl">
+                       <i data-feather="play" style="color:#000; width:16px; height:16px;"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="list-content text-center">
+                <div class="list-body">
+                    <a href="#" class="list-title title ajax h-1x font-weight-bold">@item.Title</a>
+                    <a href="#" class="list-subtitle d-block text-muted h-1x subtitle ajax">@item.Artist.Name</a>
+                </div>
+            </div>
+            <div class="list-action show-row">
+                <div class="px-3 text-sm text-muted d-none d-md-block num">@item.ClickCount</div>
+            </div>
+        </div>
+    </div>
+}

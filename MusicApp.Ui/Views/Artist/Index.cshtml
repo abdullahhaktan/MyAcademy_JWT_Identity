@@ -1,0 +1,42 @@
+﻿@model List<ResultArtistDto>
+
+@{
+    bool isAjax = Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+    Layout = isAjax ? null : "~/Views/Shared/_UiLayout.cshtml";
+}
+
+<div class="page-content page-container" id="page-content">
+    <div class="padding sr" id="list" data-plugin="list">
+        <div class="page-hero">
+            <div class="media bg-media">
+                <div class="media-content" style="background-image:url('/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/img/b6.jpg')"></div>
+            </div>
+            <div class="pos-rlt">
+                <h1 class="display-3 font-weight-bold text-white">@ViewBag.totalArtistCount Toplam Sanatçılar</h1>
+            </div>
+        </div>
+        <div class="d-lg-flex pos-rlt">
+            <div class="flex">
+                <div class="pb-4 d-flex sr-item" id="filter-tag">
+                    <a href="#" class="btn btn-sm btn-white m-1 artist-filter-btn" data-value="all">
+                        Tüm Ülkeler
+                    </a>
+                    <div class="mx-3">
+                        @foreach (var artist in ViewBag.allArtistsByDistinctCountry)
+                        {
+                            <a href="#" class="btn btn-sm btn-white m-1 artist-filter-btn" data-value="@artist.Country">
+                                @artist.Country
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <div id="artist-list-container">
+                    @await Html.PartialAsync("ArtistListPartial.cshtml", Model)
+                </div>
+            </div>
+            <div style="min-width: 4rem"></div>
+            @await Html.PartialAsync("RightbarPartial")
+        </div>
+    </div>
+</div>

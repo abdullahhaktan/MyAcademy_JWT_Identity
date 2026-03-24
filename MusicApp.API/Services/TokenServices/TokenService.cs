@@ -17,10 +17,11 @@ namespace MusicApp.API.Services.TokenServices
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("FullName", user.FullName),
-                new Claim("PackageId", user.PackageId.ToString()) // SENİN PROJENİN KALBİ BURASI!
+                new Claim("PackageId", user.PackageId.ToString())
             };
 
             var roles = await userManager.GetRolesAsync(user);
+
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
@@ -42,7 +43,6 @@ namespace MusicApp.API.Services.TokenServices
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
-
         }
     }
 }

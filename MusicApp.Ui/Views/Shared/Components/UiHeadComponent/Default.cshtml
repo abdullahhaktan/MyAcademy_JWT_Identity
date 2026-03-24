@@ -1,0 +1,217 @@
+﻿@*
+    Ui Head Component
+*@
+
+<head>
+    <meta charset="utf-8" />
+    <title>Discover | Bepop - Music Web Application</title>
+    <meta name="description" content="Responsive, Bootstrap, BS4" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!-- style -->
+    <!-- build:css ../assets/css/site.min.css -->
+    <link rel="stylesheet" href="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/slick-carousel/slick/slick.css" type="text/css" />
+    <link rel="stylesheet" href="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/slick-carousel/slick/slick-theme.css" type="text/css" />
+    <link rel="stylesheet" href="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/css/style.css" type="text/css" />
+    <!-- endbuild -->
+    <!-- Global Stiller - Tüm sayfalarda kullanılacak kart ve filtre stilleri -->
+    <style>
+
+        .btn-play {
+            position: relative;
+        }
+
+            .btn-play::after {
+                content: "▶";
+                font-size: 18px;
+                color: #7b2cbf; /* istersen değiştir */
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-40%, -50%);
+            }
+
+        /* ===== KART STİLLERİ ===== */
+        .song-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border-radius: 12px !important;
+            overflow: hidden;
+            background: rgba(255,255,255,0.05) !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+        }
+
+            .song-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+                background: rgba(255,255,255,0.1) !important;
+                border-color: rgba(162,89,255,0.3) !important;
+            }
+
+        .song-image {
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0 !important;
+        }
+
+        .level-badge {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            z-index: 2;
+            background: linear-gradient(135deg,#a259ff,#6a3bb3) !important;
+            border: none;
+            font-weight: 500;
+        }
+
+        .hover-overlay {
+            background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%);
+            border-radius: 12px 12px 0 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .song-card:hover .hover-overlay {
+            opacity: 1 !important;
+        }
+
+        .btn-rounded-circle {
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg,#a259ff,#6a3bb3);
+            border: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 5px 15px rgba(162,89,255,0.4);
+        }
+
+            .btn-rounded-circle:hover {
+                transform: scale(1.1);
+                box-shadow: 0 8px 25px rgba(162,89,255,0.6);
+            }
+
+            .btn-rounded-circle i {
+                color: white !important;
+            }
+
+        /* ===== BADGE STİLLERİ ===== */
+        .badge {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            border-radius: 20px;
+        }
+
+        .bg-info {
+            background: linear-gradient(135deg,#17a2b8,#0f6674) !important;
+        }
+
+        .bg-success {
+            background: linear-gradient(135deg,#28a745,#1e7b34) !important;
+        }
+
+        /* ===== FİLTRE BUTONU STİLLERİ ===== */
+        .filter-btn {
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary.active {
+            background: linear-gradient(135deg,#a259ff,#6a3bb3) !important;
+            border-color: #a259ff !important;
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(162,89,255,0.1) !important;
+            border-color: #a259ff !important;
+            color: white !important;
+        }
+
+        /* ===== GRID VE LAYOUT STİLLERİ ===== */
+        .g-4 {
+            gap: 1.5rem !important;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        /* ===== METİN STİLLERİ ===== */
+        .text-truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .fw-bold {
+            font-weight: 600;
+        }
+
+        /* ===== FEATHER ICON STİLLERİ ===== */
+        [data-feather] {
+            vertical-align: middle;
+        }
+
+        /* ===== DROPDOWN STİLLERİ ===== */
+        .dropdown-menu-dark {
+            background-color: #343a40;
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .dropdown-item {
+            color: #fff;
+        }
+
+            .dropdown-item:hover {
+                background-color: rgba(255,255,255,0.1);
+                color: #fff;
+            }
+
+        /* ===== POZİSYON STİLLERİ ===== */
+        .position-relative {
+            position: relative;
+        }
+
+        .position-absolute {
+            position: absolute;
+        }
+
+        .rounded-pill {
+            border-radius: 50rem;
+        }
+
+        /* ===== MARGİN STİLLERİ ===== */
+        .me-1, .me-2, .me-3 {
+            margin-right: 0.5rem;
+        }
+
+        .mx-1, .mx-2 {
+            margin-left: 0.25rem;
+            margin-right: 0.25rem;
+        }
+
+        /* ===== RESPONSIVE DÜZENLEMELER ===== */
+        @@media (max-width: 768px) {
+            .song-image {
+                height: 150px;
+            }
+
+            .col-sm-6 {
+                padding: 0 0.5rem;
+            }
+
+            .btn-rounded-circle {
+                width: 40px;
+                height: 40px;
+            }
+
+                .btn-rounded-circle i {
+                    width: 20px;
+                    height: 20px;
+                }
+        }
+    </style>
+</head>

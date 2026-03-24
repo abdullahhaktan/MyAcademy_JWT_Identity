@@ -1,0 +1,208 @@
+﻿@model List<ResultRecentlyAddedDto>
+
+<div class="row">
+
+    <div class="col-md-6">
+
+        <div class="heading pt-5 pb-3 d-flex">
+            <div>
+                <div class="text-muted">Kullanıcı</div>
+                <h5 class="text-highlight">Son Eklenen</h5>
+            </div>
+            <span class="flex"></span>
+        </div>
+
+        <div class="row list-row list-index">
+
+            @foreach (var item in Model.Where(x => x.IsActive))
+            {
+                <div class="col-12 mb-3">
+
+                    <div class="list-item r p-3 bg-white shadow-sm rounded-lg">
+
+                        <div class="d-flex align-items-center">
+
+                            <div style="
+                                        width:70px;
+                                        height:70px;
+                                        border-radius:16px;
+                                        background-image:url('@item.Song.ImageUrl');
+                                        background-size:cover;
+                                        background-position:center;">
+                            </div>
+
+                            <div class="flex-grow-1 ml-3">
+                                <div class="font-weight-bold">
+                                    @item.Song.Title
+                                </div>
+                                <div class="text-muted small">
+                                    @item.Song.Artist.Name
+                                </div>
+                                <div class="text-muted small">
+                                    @item.Description
+                                </div>
+                            </div>
+
+                            <button type="button"
+                                    class="btn btn-dark btn-sm rounded-circle btn-play"
+                                    style="width:45px;height:45px;"
+                                    data-audio="@item.Song.FilePath"
+                                    data-title="@item.Song.Title"
+                                    data-artist="@item.Song.Artist.Name"
+                                    data-image="@item.Song.ImageUrl">
+                                ▶
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="heading pt-5 pb-3 d-flex ">
+            <div>
+                <div class="text-muted sr-item">Yakında</div>
+                <h5 class="text-highlight sr-item">Events</h5>
+            </div>
+            <span class="flex"></span>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="list-item list-overlay r mb-3">
+                    <div class="media media-4x3 gd-primary">
+                        <a href="#" class="ajax media-content" style="background-image:url('https://i.imgur.com/event1.jpg')">
+                        </a>
+                        <div class="media-action"></div>
+                    </div>
+                    <div class="list-content p-4">
+                        <div class="list-body">
+                            <a href="#" class="list-title title ajax h5 font-weight-bold">
+                                İstanbul Müzik Festivali
+                            </a>
+                            <a href="#" class="list-subtitle d-block text-muted h-1x subtitle ajax">
+                                Türkiye'nin en büyük açık hava müzik festivali İstanbul'da!
+                            </a>
+                        </div>
+                        <div class="list-footer">
+                            <div class="text-muted text-sm">
+                                May 15, 2026
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="list-item list-overlay r mb-3">
+                    <div class="media media-4x3 gd-success">
+                        <a href="#" class="ajax media-content" style="background-image:url('https://i.imgur.com/event2.jpg')">
+                        </a>
+                        <div class="media-action"></div>
+                    </div>
+                    <div class="list-content p-4">
+                        <div class="list-body">
+                            <a href="#" class="list-title title ajax h5 font-weight-bold">
+                                Rock Arena 2026
+                            </a>
+                            <a href="#" class="list-subtitle d-block text-muted h-1x subtitle ajax">
+                                Dünyanın dört bir yanından rock grupları Ankara'da buluşuyor!
+                            </a>
+                        </div>
+                        <div class="list-footer">
+                            <div class="text-muted text-sm">
+                                Jun 20, 2026
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="list-item list-overlay r mb-3">
+                    <div class="media media-4x3 gd-warning">
+                        <a href="#" class="ajax media-content" style="background-image:url('https://i.imgur.com/event3.jpg')">
+                        </a>
+                        <div class="media-action"></div>
+                    </div>
+                    <div class="list-content p-4">
+                        <div class="list-body">
+                            <a href="#" class="list-title title ajax h5 font-weight-bold">
+                                EDM Night İzmir
+                            </a>
+                            <a href="#" class="list-subtitle d-block text-muted h-1x subtitle ajax">
+                                Avicii ve Daft Punk tribütleriyle unutulmaz bir gece!
+                            </a>
+                        </div>
+                        <div class="list-footer">
+                            <div class="text-muted text-sm">
+                                Jul 4, 2026
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="list-item list-overlay r mb-3">
+                    <div class="media media-4x3 gd-danger">
+                        <a href="#" class="ajax media-content" style="background-image:url('https://i.imgur.com/event4.jpg')">
+                        </a>
+                        <div class="media-action"></div>
+                    </div>
+                    <div class="list-content p-4">
+                        <div class="list-body">
+                            <a href="#" class="list-title title ajax h5 font-weight-bold">
+                                K-Pop Fest Ankara
+                            </a>
+                            <a href="#" class="list-subtitle d-block text-muted h-1x subtitle ajax">
+                                BTS, BlackPink ve daha fazlası için büyük K-Pop gecesi!
+                            </a>
+                        </div>
+                        <div class="list-footer">
+                            <div class="text-muted text-sm">
+                                Aug 10, 2026
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="heading pt-5 pb-3 d-flex ">
+            <div>
+                <div class="text-muted sr-item">Blog</div>
+                <h5 class="text-highlight sr-item">Yeni</h5>
+            </div>
+            <span class="flex"></span>
+        </div>
+        <div class="row">
+            @foreach (var blog in ViewBag.lastBlogs)
+            {
+                <div class="col-4">
+                    <div class="list-item r">
+                        <div class="media media-16x9">
+                            <a href="/Blog/BlogDetail/@blog.Id" class="ajax media-content " style="background-image:url(@blog.ImageUrl)">
+                            </a>
+                            <div class="media-action ">
+                            </div>
+                        </div>
+                        <div class="list-content ">
+                            <div class="list-body ">
+                                <a href="/Blog/BlogDetail/@blog.Id" class="list-title title ajax ">
+                                    @blog.Title
+                                </a>
+                            </div>
+                            <div class="list-footer ">
+                                <div class="text-muted text-sm">
+                                    @blog.CreatedDate
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

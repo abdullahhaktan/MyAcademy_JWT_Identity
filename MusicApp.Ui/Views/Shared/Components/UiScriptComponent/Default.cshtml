@@ -1,0 +1,250 @@
+﻿<!-- build:js ../assets/js/site.min.js -->
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/jquery/dist/jquery.min.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/pjax/pjax.min.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/js/ajax.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/js/lazyload.config.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/js/lazyload.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/js/plugin.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/scrollreveal/dist/scrollreveal.min.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/slick-carousel/slick/slick.min.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/libs/feather-icons/dist/feather.min.js"></script>
+<script src="/bepop-non-stop-music-template-2025-03-31-00-57-13-utc/Bepop/assets/js/theme.js"></script>
+<!-- endbuild -->
+<!-- Bottom Player Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const audio = document.getElementById("bp-audio");
+        const playBtn = document.getElementById("bp-play");
+        const progress = document.getElementById("bp-progress");
+        const volume = document.getElementById("bp-volume");
+        const current = document.getElementById("bp-current");
+        const duration = document.getElementById("bp-duration");
+        const title = document.getElementById("bp-title");
+        const artist = document.getElementById("bp-artist");
+        const image = document.getElementById("bp-image");
+
+        function formatTime(sec){
+            if(isNaN(sec)) return "0:00";
+            const m = Math.floor(sec/60);
+            const s = Math.floor(sec%60);
+            return m + ":" + (s<10?"0":"") + s;
+        }
+
+        $(document).on("click", ".btn-play", function () {
+            audio.src = this.dataset.audio;
+            title.innerText = this.dataset.title;
+            artist.innerText = this.dataset.artist;
+            image.src = this.dataset.image;
+            audio.play();
+            playBtn.innerText = "⏸";
+        });
+
+        playBtn.addEventListener("click",function(){
+            if(audio.paused){ audio.play(); this.innerText="⏸"; }
+            else{ audio.pause(); this.innerText="▶"; }
+        });
+
+        audio.addEventListener("timeupdate",function(){
+            if(audio.duration) {
+                progress.value = (audio.currentTime/audio.duration)*100;
+                if(current) current.innerText = formatTime(audio.currentTime);
+            }
+        });
+
+        audio.addEventListener("loadedmetadata",function(){
+            if(duration) duration.innerText = formatTime(audio.duration);
+        });
+
+        progress.addEventListener("input",function(){
+            if(audio.duration) {
+                audio.currentTime = (progress.value/100)*audio.duration;
+            }
+        });
+
+        volume.addEventListener("input",function(){
+            audio.volume = volume.value;
+        });
+    });
+</script>
+
+<script>
+    function loadPage(url) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            headers: { "X-Requested-With": "XMLHttpRequest" },
+            success: function(result) {
+                $('#content').html(result);
+                window.history.pushState({}, '', url);
+                if (typeof feather !== 'undefined') feather.replace();
+                if ($('.list').length > 0) $('.list').removeClass('hide');
+            }
+        });
+    }
+</script>
+
+<!-- Chart Filtreleme -->
+<script>
+    let activeFilters = { sort: 'newest', country: 'all', genre: 'all' };
+
+    $(document).on('click', '.filter-opt', function(e) {
+        e.preventDefault();
+
+        // Sadece chart-list-container varsa çalış
+        if ($('#chart-list-container').length === 0) return;
+
+        const type  = $(this).data('type');
+        const value = $(this).data('value');
+        const label = $(this).text();
+        activeFilters[type] = value;
+        if (type === 'sort')    $('#btn-sort span').text(label);
+        if (type === 'country') $('#btn-country span').text(label);
+        if (type === 'genre')   $('#btn-genre span').text(label);
+        $(this).closest('.dropdown-menu').removeClass('show');
+
+        $('#chart-list-container')
+        .html('<div class="text-center py-5"><div class="spinner-border text-primary"></div></div>')
+        .css('opacity','0.5');
+
+        $.ajax({
+            url: '/Chart/Index',
+            type: 'GET',
+            data: activeFilters,
+            headers: {
+                "X-Requested-With": "XMLHttpRequest",
+                "X-Filter-Request": "true"
+            },
+            success: function(result) {
+                $('#chart-list-container').html(result).css('opacity','1');
+                if (typeof feather !== 'undefined') feather.replace();
+            },
+            error: function() {
+                alert("Hata oluştu.");
+                $('#chart-list-container').css('opacity','1');
+            }
+        });
+    });
+</script>
+
+<!-- Artist Filtreleme -->
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.artist-filter-btn', function(e) {
+            e.preventDefault();
+            var country = $(this).data('value');
+            $('.artist-filter-btn').removeClass('btn-primary active').addClass('btn-white');
+            $(this).removeClass('btn-white').addClass('btn-primary active');
+            $('#artist-list-container').css('opacity', '0.5');
+            $.ajax({
+                url: '/Artist/Filter',
+                type: 'GET',
+                data: { Country: country },
+                headers: { "X-Requested-With": "XMLHttpRequest" },
+                success: function(result) {
+                    $('#artist-list-container').html(result).css('opacity', '1');
+                    if (typeof feather !== 'undefined') feather.replace();
+                },
+                error: function() {
+                    alert("Sanatçılar yüklenirken hata oluştu.");
+                    $('#artist-list-container').css('opacity', '1');
+                }
+            });
+        });
+
+        let genreFilters = { country: 'all', genre: 'all' };
+        function setGenreActiveButton(type, value) {
+            $(`.filter-btn[data-type="${type}"]`).removeClass('active btn-primary').addClass('btn-outline-light');
+            $(`.filter-btn[data-type="${type}"][data-value="${value}"]`).removeClass('btn-outline-light').addClass('active btn-primary');
+        }
+
+        $(document).on('click', '.filter-btn', function(e) {
+            e.preventDefault();
+            const type  = $(this).data('type');
+            const value = $(this).data('value');
+            genreFilters[type] = value;
+            setGenreActiveButton(type, value);
+            $('#chart-list-container').css('opacity','0.5').html('<div class="text-center py-5"><div class="spinner-border text-primary"></div></div>');
+            $.ajax({
+                url: '/Genre/Filter',
+                type: 'GET',
+                data: genreFilters,
+                headers: { "X-Requested-With": "XMLHttpRequest" },
+                success: function(result) {
+                    $('#chart-list-container').html(result).css('opacity','1');
+                    if (typeof feather !== 'undefined') feather.replace();
+                },
+                error: function() {
+                    alert("Hata oluştu.");
+                    $('#chart-list-container').css('opacity','1');
+                }
+            });
+        });
+
+        setGenreActiveButton('country','all');
+        setGenreActiveButton('genre','all');
+    });
+</script>
+
+<!-- Comment -->
+<script>
+    function bindCommentButton() {
+        $(document).off('click','#btn-send-comment');
+        $(document).on('click','#btn-send-comment', function(){
+            var description = $('#comment-text').val().trim();
+            var blogId = parseInt($(this).data('blog-id'));
+            if(description===''){ alert('Lütfen bir yorum yazın.'); return; }
+            $.ajax({
+                url:'/Blog/CreateComment',
+                type:'POST',
+                data:{ description: description, blogId: blogId },
+                success:function(){
+                    $.ajax({
+                        url:'/Blog/GetComments',
+                        type:'GET',
+                        data:{ blogId: blogId },
+                        success:function(result){
+                            $('#comment-list').html(result);
+                            $('#comment-text').val('');
+                        }
+                    });
+                },
+                error:function(){ alert('Yorum eklenirken hata oluştu.'); }
+            });
+        });
+    }
+    $(document).ready(function(){ bindCommentButton(); });
+    $(document).on('pjaxEnd', function(){ bindCommentButton(); });
+</script>
+
+<!-- Fullscreen / Search -->
+<script>
+    $(document).ready(function() {
+        $('#btn-search').on('click', function() {
+            const query = $('#search-input').val().trim();
+            if(query) alert("Arama yapılıyor: " + query);
+            else alert("Lütfen bir arama kelimesi girin.");
+        });
+        $('#btn-fullscreen').on('click', function() {
+            if(!document.fullscreenElement){
+                document.documentElement.requestFullscreen().catch(err => alert(`Tam ekran başlatılamadı: ${err.message}`));
+            } else {
+                document.exitFullscreen().catch(err => alert(`Tam ekran kapatılamadı: ${err.message}`));
+            }
+        });
+        $('#search-input').on('keypress', function(e){
+            if(e.which===13){ e.preventDefault(); $('#btn-search').click(); }
+        });
+    });
+</script>
+
+<!-- List görünür yap -->
+<script>
+    $(document).ready(function(){
+        if ($('.list').length > 0) $('.list').removeClass('hide');
+    });
+    $(document).on('pjaxEnd', function(){
+        if ($('.list').length > 0) $('.list').removeClass('hide');
+    });
+</script>

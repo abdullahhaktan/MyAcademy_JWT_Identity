@@ -1,9 +1,14 @@
+ï»¿using Mapster;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MusicApp.API.Data.Context;
 using MusicApp.API.Data.Entities;
+using MusicApp.API.DTOs.SongDtos;
+using MusicApp.API.Services.RecommendationServices;
 using MusicApp.API.Services.TokenServices;
 using System.Reflection;
 using System.Text;
@@ -11,15 +16,20 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Mapster config this prevents cycle loop 
+TypeAdapterConfig<Song, ResultSongDto>.NewConfig()
+    .MaxDepth(3);
+
 // Add services to the container.
 
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 
 builder.Services.AddIdentityCore<AppUser>()
     .AddRoles<IdentityRole<int>>()
     .AddEntityFrameworkStores<AppDbContext>();
 
-// Kimlik doðrulama (Authentication) sistemini JWT þemasýyla çalýþacak þekilde yapýlandýrýyoruz.
+// Kimlik doÄŸrulama (Authentication) sistemini JWT ÅŸemasÄ±yla Ã§alÄ±ÅŸacak ÅŸekilde yapÄ±landÄ±rÄ±yoruz.
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -27,26 +37,15 @@ builder.Services.AddAuthentication(options =>
 })
     .AddJwtBearer(options =>
     {
-        // Gelen Token'ýn geçerli olup olmadýðýný hangi kriterlere göre kontrol edeceðiz?
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            // 1. Ýmza Kontrolü: Token bizim gizli anahtarýmýzla (Key) mi imzalanmýþ?
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-
-            // 2. Yayýncý Kontrolü: Bu token'ý bizim API (Issuer) mý üretmiþ?
             ValidateIssuer = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
-
-            // 3. Hedef Kitle Kontrolü: Bu token bizim Uygulamamýz (Audience) için mi üretilmiþ?
             ValidateAudience = true,
             ValidAudience = builder.Configuration["Jwt:Audience"],
-
-            // 4. Zaman Kontrolü: Token'ýn süresi (Expire Date) dolmuþ mu?
             ValidateLifetime = true,
-
-            // 5. Hassasiyet: Sunucu saati ile dünya saati arasýndaki 5 dk'lýk esneklik payýný sýfýrlýyoruz.
-            // Süre bittiði saniyede token geçersiz olsun diye.
             ClockSkew = TimeSpan.Zero
         };
     });
@@ -56,32 +55,50 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("SqlConnection");
-
     options.UseSqlServer(connectionString);
 });
 
-builder.Services.AddControllers().AddJsonOptions(config=>
+// Global Authentication
+builder.Services.AddControllers(config =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+                     .RequireAuthenticatedUser()
+                     .Build();
+    config.Filters.Add(new AuthorizeFilter(policy));
+})
+.AddJsonOptions(config =>
 {
     config.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+
+// ðŸ”¹ EÄŸer Policy kullanÄ±lsaydÄ± burada ekstra eklenirdi:
+builder.Services.AddAuthorization(options =>
+{
+    // Ã–rnek: A veya B rolÃ¼ne sahip kullanÄ±cÄ±lar iÃ§in Ã¶zel policy
+    options.AddPolicy("AorBOnly", policy =>
+        policy.RequireRole("A", "B")); // Burada RequireRole OR mantÄ±ÄŸÄ±yla Ã§alÄ±ÅŸÄ±r
+    // Daha karmaÅŸÄ±k kurallar iÃ§in claim veya custom requirement eklenebilirdi:
+    // policy.RequireClaim("PackageId", "2", "3"); 
+    // policy.AddRequirements(new CustomRequirement(...));
+});
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "MusicApp API", Version = "v1" });
 
-    // 1. Swagger'a "Bearer" þemasýný tanýmlýyoruz
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Description = "Lütfen baþýna 'Bearer ' yazarak tokený yapýþtýrýn. Örn: 'Bearer abc123...'",
+        Description = "LÃ¼tfen baÅŸÄ±na 'Bearer ' yazarak tokenÄ± yapÄ±ÅŸtÄ±rÄ±n. Ã–rn: 'Bearer abc123...'",
         Name = "Authorization",
         Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
         BearerFormat = "JWT",
         Scheme = "Bearer"
     });
 
-    // 2. Tüm API metodlarýna bu güvenlik gereksinimini ekliyoruz
     c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
     {
         {
@@ -97,9 +114,9 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -111,6 +128,9 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+// ðŸ”¹ Controller tarafÄ±nda Policy kullanÄ±lsaydÄ± Ã¶rnek:
+// [Authorize(Policy = "AorBOnly")]
+// public IActionResult SpecialEndpoint() { ... }
 
+app.MapControllers();
 app.Run();
