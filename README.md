@@ -182,6 +182,9 @@ GitHub → [abdullahhaktan](https://github.com/abdullahhaktan)
 
 ## 📸 Ekran Görüntüleri
 
+<img width="3524" height="4624" alt="localhost_7067_" src="https://github.com/user-attachments/assets/4a315e12-cb2c-4d36-b9bb-f5eb2ba1a3c2" />
+
+---
 
 <img width="959" height="470" alt="Ekran görüntüsü 2026-03-24 085901" src="https://github.com/user-attachments/assets/7528789c-e779-4150-a135-6f985e926654" />
 
@@ -249,10 +252,6 @@ GitHub → [abdullahhaktan](https://github.com/abdullahhaktan)
 ---
 
 <img width="958" height="475" alt="Ekran görüntüsü 2026-03-24 101601" src="https://github.com/user-attachments/assets/04d30ae3-a281-4396-b281-3b2e536cdaf0" />
-
----
-
-<img width="3524" height="4624" alt="localhost_7067_" src="https://github.com/user-attachments/assets/4a315e12-cb2c-4d36-b9bb-f5eb2ba1a3c2" />
 
 ---
 
