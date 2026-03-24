@@ -256,6 +256,10 @@ GitHub → [abdullahhaktan](https://github.com/abdullahhaktan)
 
 ---
 
+<img width="3524" height="4654" alt="localhost_7155_swagger_index html" src="https://github.com/user-attachments/assets/d6265b4c-9cdf-45ed-b50e-7450b9b65656" />
+
+---
+
 <img width="959" height="471" alt="Ekran görüntüsü 2026-03-24 102057" src="https://github.com/user-attachments/assets/7d9e392a-26d3-4b6f-8f4c-35faccf8f1ec" />
 
 ---
@@ -265,10 +269,6 @@ GitHub → [abdullahhaktan](https://github.com/abdullahhaktan)
 ---
 
 <img width="3524" height="2102" alt="localhost_7067_Login_Index (1)" src="https://github.com/user-attachments/assets/e55a93f6-46c5-4c3c-9a8a-0e66131100c7" />
-
----
-
-<img width="3524" height="4654" alt="localhost_7155_swagger_index html" src="https://github.com/user-attachments/assets/d6265b4c-9cdf-45ed-b50e-7450b9b65656" />
 
 ---
 
