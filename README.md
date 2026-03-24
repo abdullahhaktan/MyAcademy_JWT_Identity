@@ -182,6 +182,14 @@ GitHub → [abdullahhaktan](https://github.com/abdullahhaktan)
 
 ## 📸 Ekran Görüntüleri
 
+<img width="3524" height="2102" alt="localhost_7067_Register_Index (1)" src="https://github.com/user-attachments/assets/866b7f80-58f8-426a-b8eb-039c3e951ee3" />
+
+---
+
+<img width="3524" height="2102" alt="localhost_7067_Login_Index (1)" src="https://github.com/user-attachments/assets/e55a93f6-46c5-4c3c-9a8a-0e66131100c7" />
+
+---
+
 <img width="3524" height="4624" alt="localhost_7067_" src="https://github.com/user-attachments/assets/4a315e12-cb2c-4d36-b9bb-f5eb2ba1a3c2" />
 
 ---
@@ -265,10 +273,3 @@ GitHub → [abdullahhaktan](https://github.com/abdullahhaktan)
 
 <img width="959" height="471" alt="Ekran görüntüsü 2026-03-24 102057" src="https://github.com/user-attachments/assets/7d9e392a-26d3-4b6f-8f4c-35faccf8f1ec" />
 
----
-
-<img width="3524" height="2102" alt="localhost_7067_Register_Index (1)" src="https://github.com/user-attachments/assets/866b7f80-58f8-426a-b8eb-039c3e951ee3" />
-
----
-
-<img width="3524" height="2102" alt="localhost_7067_Login_Index (1)" src="https://github.com/user-attachments/assets/e55a93f6-46c5-4c3c-9a8a-0e66131100c7" />
