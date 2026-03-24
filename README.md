@@ -4,16 +4,6 @@
 
 ---
 
-| Anasayfa | Chart Sayfası | Sanatçılar |
-|----------|--------------|------------|
-| ![home](screenshots/home.png) | ![chart](screenshots/chart.png) | ![artist](screenshots/artist.png) |
-
-| Player | Öneriler | Blog |
-|--------|----------|------|
-| ![player](screenshots/player.png) | ![recommend](screenshots/recommend.png) | ![blog](screenshots/blog.png) |
-
----
-
 ## 🚀 Özellikler
 
 - 🔐 **JWT Authentication** — Token tabanlı kimlik doğrulama ve yetkilendirme
